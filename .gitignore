@@ -1,0 +1,11 @@
+# package directories
+.build
+
+# Webpack directories
+.webpack
+
+.warmup
+
+.idea
+
+node_modules
