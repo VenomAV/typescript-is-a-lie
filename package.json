@@ -7,7 +7,9 @@
     "typecheck:w": "tsc --noemit --watch",
     "lint": "eslint . --ext .ts",
     "test": "jest --runInBand",
-    "test:w": "yarn test --watch"
+    "test:w": "yarn test --watch",
+    "server": "mocks-server",
+    "start": "ts-node src/index.ts"
   },
   "author": "doubleloop",
   "dependencies": {
@@ -26,7 +28,8 @@
     "@typescript-eslint/parser": "^5.36.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1"
+    "eslint-plugin-prettier": "^4.2.1",
+    "@mocks-server/main": "^3.12.0"
   },
   "ntl": {
     "runner": "yarn"

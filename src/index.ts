@@ -6,15 +6,20 @@ type User = {
 }
 
 const getUser = async (userId: string): Promise<User | undefined> => {
-    const { data, status } = await axios.get(`http://localhost/user/${userId}`)
-    if (status >= 300) return undefined
-    return data
+    try {
+        const { data, status } = await axios.get(`http://localhost:3100/api/users/${userId}`)
+        if (status >= 300) return undefined
+        return data
+    } catch {
+        return undefined
+    }
 }
 
 const main = async () => {
-    const user = await getUser("666")
+    const user = await getUser("42")
 
-    console.log(user?.firstName.toUpperCase() || "NO USER FOUND")
+    if (user) console.log(`HI ${user?.firstName.toUpperCase()}!!!`)
+    else console.log("NO USER FOUND")
 }
 
 main()
