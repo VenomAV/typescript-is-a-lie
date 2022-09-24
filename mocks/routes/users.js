@@ -6,7 +6,7 @@
 const USERS = [
     {
         id: 1,
-        name: "John",
+        firstName: "John",
         lastName: "Doe",
     },
     {

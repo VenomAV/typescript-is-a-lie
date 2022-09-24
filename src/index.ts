@@ -1,25 +1,25 @@
 import axios from "axios"
+import * as t from "io-ts"
+import * as F from "fp-ts/function"
+import * as E from "fp-ts/Either"
+import {TypeOf} from "io-ts";
 
-type User = {
-    firstName: string
-    lastName: string
-}
-
-const validateGuard = (y: any): y is User => {
-    return "firstName" in (y) && typeof y.firstName === "string"
-        && "lastName" in (y)
-}
-const validate = (x: unknown): User | undefined => {
-    if (validateGuard(x))
-        return x
-    return undefined
-}
+const User = t.interface({
+    firstName: t.string,
+    lastName: t.string
+})
+type User = TypeOf<typeof User>
 
 const getUser = async (userId: string): Promise<User | undefined> => {
     try {
         const { data, status } = await axios.get(`http://localhost:3100/api/users/${userId}`)
         if (status >= 300) return undefined
-        return validate(data)
+        const ret = F.pipe(
+            //
+            User.decode(data),
+            E.getOrElseW(() => undefined));
+        return ret
+        // return validate(data)
     } catch {
         return undefined
     }
