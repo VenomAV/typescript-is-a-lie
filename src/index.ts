@@ -5,11 +5,13 @@ type User = {
     lastName: string
 }
 
+const validateGuard = (y: any): y is User => {
+    return "firstName" in (y) && typeof y.firstName === "string"
+        && "lastName" in (y)
+}
 const validate = (x: unknown): User | undefined => {
-    const y: any = x
-    if ("firstName" in (y) && typeof y.firstName === "string"
-        && "lastName" in (y))
-        return x as any
+    if (validateGuard(x))
+        return x
     return undefined
 }
 
